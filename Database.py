@@ -1,13 +1,20 @@
+import os
 import datetime
 import pandas as pd
+import streamlit as st
 from supabase import create_client, Client
 
-# --- CREDENCIAIS DO SUPABASE ---
-SUPABASE_URL = "https://taycbigozolngeyalhvf.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRheWNiaWdvem9sbmdleWFsaHZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxODM2NjYsImV4cCI6MjEwNTc1OTY2Nn0.OvB92NqBuKwvJlrrLhoNfY1-8SJ8WD4GTwmSartRbYk"
+# --- CREDENCIAIS SEGURAS DO SUPABASE ---
+# Tenta carregar primeiro pelo st.secrets (Streamlit Cloud/Local), caso contrário tenta variáveis de ambiente padrão
+try:
+    SUPABASE_URL = st.secrets["SUPABASE_URL"]
+    SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+except (FileNotFoundError, KeyError):
+    SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+    SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 
+# Inicialização do Cliente Supabase
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
 
 def carregar_planilha_pedidos(caminho_excel_ou_buffer):
     """
