@@ -1,0 +1,22 @@
+# Ambientes virtuais
+venv/
+.venv/
+env/
+ENV/
+
+# Caches do Python e Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configurações do Streamlit (segredos e temas locais)
+.streamlit/secrets.toml
+
+# Arquivos de IDEs
+.vscode/
+.idea/
+
+# Planilhas/Arquivos temporários locais de teste
+*.xlsx
+*.csv
+temp_pasta.xlsx
